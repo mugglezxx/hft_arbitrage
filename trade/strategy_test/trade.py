@@ -94,4 +94,21 @@ async def trade(trade, receipt_timestamp):
         '''     
     elif trade.side == "buy":
 
-         order = opm.tm_orders.hmget(symbol_id, trade.exchange)
+        order = opm.tm_orders.hmget(symbol_id, trade.exchange)
+        max_pair = min(order, key = lambda x: order[x]["maker"]["price"])
+        trade_order = ast.literal_eval(order[0].decode("utf-8"))
+
+        maker_order, taker_order = trade_order[max_pair]["maker"], trade_order[max_pair]["taker"]
+        maker_exchange, taker_exchange = maker_order["maker_exchange"], taker_order["taker_exchange"]
+
+        if trade.price > maker_order["price"]:
+
+            maker_respons = tp.maker_respons(symbol_id, maker_order, book_trade, maker_exchange)
+            taker_respons = tp.maker_respons(symbol_id, taker_exchange, book_trade, maker_exchange)
+
+            opm.open_positions(symbol_id, maker_respons, maker_exchange)
+            opm.open_positions(symbol_id, taker_respons, taker_exchange)
+            opm.open_spositions(symbol_id, maker_respons, taker_respons, maker_exchange, taker_exchange)
+
+            rm.q_new_trade(symbol_id, maker_respons, "new")
+            rm.q_new_trade(symbol_id, taker_respons, "new")

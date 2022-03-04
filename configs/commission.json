@@ -1,0 +1,84 @@
+{
+    "USDM":{
+
+        "MAKER":{
+            "BINANCE_FUTURES": 0.0002,
+            "FTX": 0.0002,
+            "OKEX": 0.0002,
+            "HUOBISWAP": 0.0002,
+            "BYBIT": -0.00025,
+            "BITMEX": -0.0001,
+            "ASCENDEX": 0.0002,
+            "PHEMEX": -0.00025,
+            "BITFINEX": 0.0002,
+            "DERIBIT": -0.0001,
+            "DYDX": 0.0002,
+            "KRAKEN": 0.0002,
+            "GATEIO": 0,
+            "KUCOIN": 0.0002,
+            "BITGET": 0.0002,
+            "POLONIEX": 0.0001
+        },
+        
+        "TAKER":{
+
+            "BINANCE_FUTURES": 0.0002,
+            "FTX": 0.0002,
+            "OKEX": 0.0005,
+            "HUOBISWAP": 0.0004,
+            "BYBIT": 0.00075,
+            "BITMEX": 0.0005,
+            "ASCENDEX": 0.0006,
+            "PHEMEX": 0.00075,
+            "BITFINEX": 0.00065,
+            "DERIBIT": 0.0005,
+            "DYDX": 0.0005,
+            "KRAKEN": 0.0005,
+            "GATEIO": 0.0004,
+            "KUCOIN": 0.0006,
+            "BITGET": 0.0006,
+            "POLONIEX": 0.00075
+        }
+    },
+
+    "COINM":{
+
+        "MAKER":{
+            "BINANCE_FUTURES": 0.0002,
+            "FTX": 0.0002,
+            "OKEX": 0.0002,
+            "HUOBISWAP": 0.0002,
+            "BYBIT": -0.00025,
+            "BITMEX": -0.0001,
+            "ASCENDEX": 0.0002,
+            "PHEMEX": -0.00025,
+            "BITFINEX": 0.0002,
+            "DERIBIT": -0.0001,
+            "DYDX": 0.0002,
+            "KRAKEN": 0.0002,
+            "GATEIO": 0,
+            "KUCOIN": 0.0002,
+            "BITGET": 0.0002,
+            "POLONIEX": 0.0001
+        },
+
+        "TAKER":{
+            "BINANCE_FUTURES": 0.0002,
+            "FTX": 0.0002,
+            "OKEX": 0.0005,
+            "HUOBISWAP": 0.0005,
+            "BYBIT": 0.00075,
+            "BITMEX": 0.0005,
+            "ASCENDEX": 0.0006,
+            "PHEMEX": 0.00075,
+            "BITFINEX": 0.00065,
+            "DERIBIT": 0.0005,
+            "DYDX": 0.0005,
+            "KRAKEN": 0.0005,
+            "GATEIO": 0.0004,
+            "KUCOIN": 0.0006,
+            "BITGET": 0.0006,
+            "POLONIEX": 0.00075
+        }
+    }
+}

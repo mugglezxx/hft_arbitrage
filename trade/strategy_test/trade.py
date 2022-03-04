@@ -63,6 +63,8 @@ async def trade(trade, receipt_timestamp):
             rm.q_new_trade(symbol_id, maker_respons, "new")
             rm.q_new_trade(symbol_id, taker_respons, "new")
 
+            opm.mtorder_update(symbol_id, max_pair, maker_order)
+
             '''
             if opm.position_database.hexists(symbol_id, maker_exchange) == True and opm.position_database.hexists(symbol_id, taker_exchange) == True:
 
@@ -92,10 +94,11 @@ async def trade(trade, receipt_timestamp):
 
                 opm.mtorder_update(symbol_id, max_pair, maker_exchange)           
         '''     
+
     elif trade.side == "buy":
 
         order = opm.tm_orders.hmget(symbol_id, trade.exchange)
-        max_pair = min(order, key = lambda x: order[x]["maker"]["price"])
+        min_pair = min(order, key = lambda x: order[x]["maker"]["price"])
         trade_order = ast.literal_eval(order[0].decode("utf-8"))
 
         maker_order, taker_order = trade_order[max_pair]["maker"], trade_order[max_pair]["taker"]
@@ -112,3 +115,23 @@ async def trade(trade, receipt_timestamp):
 
             rm.q_new_trade(symbol_id, maker_respons, "new")
             rm.q_new_trade(symbol_id, taker_respons, "new")
+
+            opm.tmorder_update(symbol_id, min_pair, maker_exchange)
+
+def main():
+
+    data_feed = FeedHandler()
+
+    data_feed.add_feed(BinanceFutures(symbols = ["BTC-USDT-PERP", "ETH-USDT-PERP", "SOL-USDT-PERP"], channels = [L2_BOOK], callbacks = {L2_BOOK: order_book}))
+    data_feed.add_feed(Bybit(symbols = ["BTC-USDT-PERP", "ETH-USDT-PERP", "SOL-USDT-PERP"], channels = [L2_BOOK], callbacks = {L2_BOOK: order_book}))
+    data_feed.add_feed(OKEx(symbols = ["BTC-USDT-PERP", "ETH-USDT-PERP", "SOL-USDT-PERP"], channels = [L2_BOOK], callbacks = {L2_BOOK: order_book}))
+    data_feed.add_feed(Bitmex(symbols = ["BTC-USDT-PERP", "ETH-USDT-PERP", "SOL-USDT-PERP"], channels = [L2_BOOK], callbacks = {L2_BOOK: order_book}))
+    data_feed.add_feed(Bitfinex(symbols = ["BTC-USDT-PERP", "ETH-USDT-PERP", "SOL-USDT-PERP"], channels = [L2_BOOK], callbacks = {L2_BOOK: order_book}))
+    data_feed.add_feed(dYdX(symbols = ["BTC-USD-PERP", "ETH-USD-PERP", "SOL-USD-PERP"], channels = [L2_BOOK], callbacks = {L2_BOOK: order_book}, cross_check = True))
+    data_feed.add_feed(FTX(symbols = ["BTC-USD-PERP", "ETH-USD-PERP", "SOL-USD-PERP"], channels = [L2_BOOK], callbacks = {L2_BOOK: order_book}))
+
+    data_feed.run()
+
+if __name__ == '__main__':
+
+    main()
